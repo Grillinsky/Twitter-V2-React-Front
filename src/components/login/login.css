@@ -1,0 +1,75 @@
+.twitter-blue {
+  background-color: var(--twitter-blue);
+}
+.like-pink {
+  background-color: var(--like-pink);
+  color: var(--like-pink);
+}
+#mainWrapper {
+  height: 100vh;
+}
+main {
+  min-height: 80vh;
+}
+#rowContainer {
+  min-height: 80dvh;
+}
+#signUpAside,
+#logInAside {
+  transition: 0.5s;
+  position: relative;
+  background-color: var(--twitter-blue);
+}
+
+#welcome {
+  position: absolute;
+  bottom: 0;
+}
+#logInButton,
+#signUpButton {
+  color: var(--white);
+  background-color: var(--twitter-blue);
+}
+#logInButton:hover,
+#signUpButton:hover {
+  filter: brightness(0.95);
+  transform: scale(0.98);
+}
+
+/* Animations */
+.slide-in-right {
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@media (max-width: 768px) {
+  .slide-in-right {
+    -webkit-animation: slide-in-right 0.01s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: slide-in-right 0.01s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
