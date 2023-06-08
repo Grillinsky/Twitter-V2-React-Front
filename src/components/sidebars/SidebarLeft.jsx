@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import "./sidebars.css";
 import LogoutBtn from "../logout/Logout";
+import { useSelector } from "react-redux";
 
-function SidebarLeft({ user }) {
+function SidebarLeft() {
+  const user = useSelector((state) => state.user);
   return (
     <nav className="sidebar-left">
       <a href="/" className="mt-1 nav-btn">

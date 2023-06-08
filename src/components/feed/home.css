@@ -8,3 +8,9 @@
 .scrolleable::-webkit-scrollbar {
   display: none;
 }
+
+.btn-feed {
+  background-color: var(--twitter-blue);
+  color: var(--white);
+  border-radius: 999em 999em 999em 999em;
+}

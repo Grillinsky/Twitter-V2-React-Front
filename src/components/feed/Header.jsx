@@ -1,22 +1,53 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import { useSelector } from "react-redux";
+import { useCheckImg } from "../../hooks/useCheckImg";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const user = useSelector((state) => state.user);
+  const checkImg = useCheckImg(user.avatar);
+  const navigate = useNavigate();
+  const [content, setContent] = useState("");
+  const [tweet, setTweet] = useState();
+
+  const handlerSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "http://localhost:3000/tweets",
+        data: { content: content },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setTweet(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (tweet) {
+      navigate(`/tweets/${tweet._id}`);
+    }
+  }, [tweet]);
 
   return (
     <div className="container border">
-      <form method="post">
+      <form method="post" onSubmit={handlerSubmit}>
         <div className="d-flex flex-column text-right mt-3">
           <div className="d-flex gap-2">
             <img
               id="headerImg"
               className="rounded-circle avatar-pic me-4"
               src={
-                user.avatar
-                  ? user.avatar
+                checkImg
+                  ? checkImg
                   : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
               }
               alt=""
@@ -27,9 +58,16 @@ function Header() {
               name="tweetContent"
               id="tweetContent"
               placeholder="What's happening"
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
+              required
             ></textarea>
           </div>
-          <button type="submit" className="nav-btn btn-tweet my-3 p-2">
+          <button
+            type="submit"
+            className="nav-btn btn-feed my-3 p-2 text-center"
+          >
             Tweet
           </button>
         </div>

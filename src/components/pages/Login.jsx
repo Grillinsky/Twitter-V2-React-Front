@@ -1,9 +1,11 @@
-import "../login/login.css";
+/* eslint-disable react/no-unescaped-entities */
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { setUserCredentials } from "../reducers/userSlices";
 import { useDispatch } from "react-redux";
+
+import "../login/login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -28,7 +30,6 @@ function Login() {
     } catch (err) {
       console.error(err.response);
     }
-    console.log(email, password, user);
   };
 
   useEffect(() => {

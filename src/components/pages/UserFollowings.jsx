@@ -8,11 +8,13 @@ import { flattenDeep } from "../../hooks/flattenDeep";
 import { useCheckImg } from "../../hooks/useCheckImg";
 import { useParams } from "react-router-dom";
 import Header from "../userProfile/Header";
+import FollowCard from "../userProfile/followCard";
 
-function UserProfile() {
+function UserFollowings() {
   const [tweets, setTweets] = useState([]);
   const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState();
+  const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -28,10 +30,20 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
-    if (userInfo) {
-      setTweets(userInfo.tweets);
-    }
-  }, [userInfo]);
+    const getFollowings = async () => {
+      const res = await axios.get(
+        `http://localhost:3000/${user.username}/followings`,
+        {
+          data: { username: user.username },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setFollowings(res.data);
+    };
+    getFollowings();
+  }, []);
 
   return (
     <div className="container">
@@ -41,9 +53,9 @@ function UserProfile() {
         </div>
         <div className="col-xxl-6 col-8">
           {userInfo && <Header data={userInfo}></Header>}
-          {tweets.map((tweet) => (
-            <div key={tweet._id}>
-              <Tweet data={tweet}></Tweet>
+          {followings.map((following) => (
+            <div className="container border p-3" key={following._id}>
+              <FollowCard data={following}></FollowCard>
             </div>
           ))}
         </div>
@@ -55,4 +67,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default UserFollowings;
