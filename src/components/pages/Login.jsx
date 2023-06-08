@@ -1,7 +1,6 @@
-import React from "react";
 import "../login/login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { setUserCredentials } from "../reducers/userSlices";
 import { useDispatch } from "react-redux";
@@ -24,13 +23,19 @@ function Login() {
           "Content-Type": "application/json",
         },
       });
-      //   dispatch(setUserCredentials(response.data));
+      dispatch(setUserCredentials(response.data));
       setUser(response.data);
-      console.log(email, password, user);
     } catch (err) {
       console.error(err.response);
     }
+    console.log(email, password, user);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <main id="#logInBody">

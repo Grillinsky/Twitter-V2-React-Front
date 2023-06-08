@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setUserCredentials } from "../reducers/userSlices";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -9,19 +13,40 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState();
-  function handleSubmit(e) {
+  const [showError, setShowError] = useState(false);
+  const [user, setUser] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-    console.log(
-      lastName,
-      firstName,
-      userName,
-      avatar,
-      password,
-      confirmPassword,
-      email
-    );
-    // if()
-  }
+
+    if (password === confirmPassword) {
+      let formData = new FormData(e.target); //formdata object
+
+      try {
+        const response = await axios({
+          method: "POST",
+          url: "http://localhost:3000/auth/users/signup",
+          data: formData,
+          headers: { "content-type": "multipart/form-data" },
+        });
+        dispatch(setUserCredentials(response.data));
+        setUser(response.data);
+      } catch (err) {
+        console.error(err.response);
+      }
+    } else {
+      setShowError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      navigate("/");
+    }
+  }, [user]);
   return (
     <main id="signUpBody">
       <div
@@ -40,7 +65,7 @@ function SignUp() {
                   id="twitterIcon"
                   className="fab fa-twitter fa-4x slide-in-right m-3"
                 >
-                  <span className="hide-element">Icono de Twitter</span>
+                  <span className="d-none">Icono de Twitter</span>
                 </i>
                 <div id="welcome" className="container m-4">
                   <h2>Hi! Welcome to Twitter Clone 👋🏻</h2>
@@ -48,10 +73,10 @@ function SignUp() {
               </aside>
               <section className="col-sm-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-center">
                 <form
-                  onSubmit={handleSubmit}
+                  onSubmit={handlerSubmit}
                   method="post"
                   className="w-100 p-3"
-                  enctype="multipart/form-data"
+                  encType="multipart/form-data"
                   action="/users/signUp"
                 >
                   <h1>Sign Up</h1>
@@ -63,11 +88,12 @@ function SignUp() {
                       }}
                       type="text"
                       className="form-control"
-                      id="firstName"
+                      id="firstname"
                       name="firstname"
                       placeholder="Nombre..."
+                      required
                     />
-                    <label for="firstName">First Name</label>
+                    <label htmlFor="firstName">First Name</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -77,10 +103,11 @@ function SignUp() {
                       type="text"
                       className="form-control"
                       id="lastname"
-                      name="lastName"
+                      name="lastname"
                       placeholder="Apellido..."
+                      required
                     />
-                    <label for="lastName">Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -92,8 +119,9 @@ function SignUp() {
                       id="email"
                       name="email"
                       placeholder="name@example.com"
+                      required
                     />
-                    <label for="email">Email address</label>
+                    <label htmlFor="email">Email address</label>
                   </div>
                   <div className="input-group mb-3">
                     <span className="input-group-text">@</span>
@@ -105,14 +133,14 @@ function SignUp() {
                         type="text"
                         className="form-control"
                         id="username"
-                        name="userName"
+                        name="username"
                         placeholder="@Username"
+                        required
                       />
-                      <label for="userName">Username</label>
+                      <label htmlFor="userName">Username</label>
                     </div>
                   </div>
                   <div className="input-group mb-3">
-                    <label htmlFor="avatar">Select your Avatar Picture</label>
                     <input
                       onChange={(e) => {
                         setAvatar(e.target.files[0]);
@@ -121,33 +149,47 @@ function SignUp() {
                       className="form-control"
                       id="avatar"
                       name="avatar"
+                      placeholder="Select your picture"
                     />
                   </div>
-                  <div className="form-floating">
-                    <input
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      name="password"
-                      type="password"
-                      className="form-control"
-                      id="password"
-                      placeholder="Password"
-                    />
-                    <label for="password">Password</label>
+                  <div className="input-group mb-3">
+                    <div className="form-floating">
+                      <input
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
+                        name="password"
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        placeholder="Password"
+                        required
+                      />
+                      <label htmlFor="password">Password</label>
+                    </div>
+                  </div>
+                  <div className="input-group mb-3">
+                    <div className="form-floating">
+                      <input
+                        onChange={(e) => {
+                          setConfirmPassword(e.target.value);
+                        }}
+                        name="confirmPassword"
+                        type="password"
+                        className="form-control"
+                        id="confirmPassword"
+                        placeholder="Please confirm yout password"
+                        required
+                      />
+                      <label htmlFor="confirmPassword">
+                        Confirm your Password
+                      </label>
+                    </div>
                   </div>
                   <div className="form-floating">
-                    <input
-                      onChange={(e) => {
-                        setConfirmPassword(e.target.value);
-                      }}
-                      name="confirmPassword"
-                      type="password"
-                      className="form-control"
-                      id="confirmPassword"
-                      placeholder="Please confirm yout password"
-                    />
-                    <label for="confirmPassword">Confirm your Password</label>
+                    <Form.Control.Feedback type="invalid">
+                      Passwords does not match, try again
+                    </Form.Control.Feedback>
                   </div>
                   <div className="d-grid my-3">
                     <button

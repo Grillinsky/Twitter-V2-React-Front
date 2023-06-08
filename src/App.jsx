@@ -1,17 +1,24 @@
-import { useState } from "react";
 import Login from "./components/pages/Login";
 import Home from "./components/pages/Home";
-import "./App.css";
-import { Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./components/pages/SignUp";
+import { useSelector } from "react-redux";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const user = useSelector((state) => state.user);
   return (
     <Routes>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
+
+      <Route
+        path="/"
+        element={
+          user.token ? <Home /> : <Navigate to="/login" replace={true} />
+        }
+      />
     </Routes>
   );
 }
