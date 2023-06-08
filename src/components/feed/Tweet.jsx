@@ -8,14 +8,15 @@ import "./tweet.css";
 import { Link } from "react-router-dom";
 
 function Tweet({ data }) {
+  console.log(data);
   const author = data.author;
   const user = useSelector((state) => state.user);
   const formatDate = useFormattedDate(data.createdAt);
   const checkImg = useCheckImg(author.avatar);
 
   return (
-    <Link to={`/tweets/${data._id}`} className="link-to">
-      <div className="d-flex tweet p-3 border ">
+    <div className="d-flex tweet p-3 border ">
+      <Link to={`/users/${author.username}`} className="link-to underline">
         <div className="d-inline-block">
           <img
             src={
@@ -26,20 +27,21 @@ function Tweet({ data }) {
             className="rounded-circle avatar-pic me-4"
           />
         </div>
-        <div className="w-100">
-          <Link to={`/users/${user.username}`} className="link-to underline">
-            <p className="fw-bold d-inline">
-              {author.firstname} {author.lastname}
-            </p>
-            <p className="text-secondary fw-medium d-inline ms-2">
-              {author.username} ·
-            </p>
-            <p className="text-secondary fw-medium d-inline ms-2">
-              {formatDate}
-            </p>
-          </Link>
+      </Link>
 
-          <p className="fw-normal mb-0"> {data.content}</p>
+      <div className="w-100">
+        <Link to={`/users/${author.username}`} className="link-to underline">
+          <p className="fw-bold d-inline">
+            {author.firstname} {author.lastname}
+          </p>
+          <p className="text-secondary fw-medium d-inline ms-2">
+            {author.username} ·
+          </p>
+          <p className="text-secondary fw-medium d-inline ms-2">{formatDate}</p>
+        </Link>
+
+        <p className="fw-normal mb-0"> {data.content}</p>
+        <Link to={`/tweets/${data._id}`} className="link-to">
           <div className="d-flex justify-content-between">
             <div className="d-flex align-items-baseline gap-1 mt-1">
               <button style={{ all: "unset" }}>
@@ -65,9 +67,9 @@ function Tweet({ data }) {
               />
             ) : null}
           </div>
-        </div>
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }
 

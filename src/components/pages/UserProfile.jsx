@@ -4,25 +4,25 @@ import SidebarRight from "../sidebars/SidebarRight";
 import { useSelector } from "react-redux";
 import Tweet from "../feed/Tweet";
 import axios from "axios";
-import { flattenDeep } from "../../hooks/flattenDeep";
-import { useCheckImg } from "../../hooks/useCheckImg";
-import { useParams } from "react-router-dom";
+
 import Header from "../userProfile/Header";
+import { useParams } from "react-router-dom";
 
 function UserProfile() {
   const [tweets, setTweets] = useState([]);
   const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState();
-
+  const params = useParams();
   useEffect(() => {
+    console.log(params);
     const getUserData = async () => {
-      const res = await axios.get(`http://localhost:3000/${user.username}`, {
-        data: { username: user.username },
+      const res = await axios.get(`http://localhost:3000/${params.username}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
       setUserInfo(res.data);
+      console.log(res.data);
     };
     getUserData();
   }, []);

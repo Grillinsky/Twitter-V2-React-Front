@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
 
+import { useCheckImg } from "../../hooks/useCheckImg";
 import "./followCard.css";
 
 function FollowCard({ data }) {
+  const checkImg = useCheckImg(data.avatar);
   return (
     <div className="row justify-content-between">
       <div className="col-sm-8">
         <div className="d-flex align-items-center">
           <img
-            src={data.avatar}
-            alt="User 1"
+            src={
+              checkImg
+                ? checkImg
+                : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
+            }
             className="rounded-circle avatar-pic me-4"
           />
           <div>

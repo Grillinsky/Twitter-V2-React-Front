@@ -14,11 +14,12 @@ function UserFollowers() {
   const user = useSelector((state) => state.user);
   const [followers, setFollowers] = useState([]);
   const [userInfo, setUserInfo] = useState();
+  const params = useParams();
 
   useEffect(() => {
     const getUserData = async () => {
-      const res = await axios.get(`http://localhost:3000/${user.username}`, {
-        data: { username: user.username },
+      console.log(params);
+      const res = await axios.get(`http://localhost:3000/${params.username}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -31,9 +32,8 @@ function UserFollowers() {
   useEffect(() => {
     const getFollowers = async () => {
       const res = await axios.get(
-        `http://localhost:3000/${user.username}/followings`,
+        `http://localhost:3000/${params.username}/followings`,
         {
-          data: { username: user.username },
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
