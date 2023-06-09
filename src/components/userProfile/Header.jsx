@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
 import { useCheckImg } from "../../hooks/useCheckImg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Header({ data }) {
+  console.log(data);
   const user = useSelector((state) => state.user);
   const checkImg = useCheckImg(data.avatar);
   const location = useLocation();
+  const params = useParams();
 
   const [followingsActive, setFollowingsActive] = useState("");
   const [followersActive, setFollowersActive] = useState("");
@@ -60,17 +62,17 @@ function Header({ data }) {
         </div>
       </div>
       <div className="d-flex justify-content-around text-center border-top">
-        <a href={`/users/${data.username}`} className={`tab ${tweetsActive}`}>
+        <a href={`/users/${params.username}`} className={`tab ${tweetsActive}`}>
           Tweets
         </a>
         <a
-          href={`/users/${data.username}/followers`}
+          href={`/users/${params.username}/followers`}
           className={`tab ${followersActive}`}
         >
           Followers
         </a>
         <a
-          href={`/users/${data.username}/followings`}
+          href={`/users/${params.username}/followings`}
           className={`tab ${followingsActive}`}
         >
           Following
