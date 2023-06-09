@@ -41,11 +41,12 @@ function UserProfile() {
         </div>
         <div className="col-xxl-6 col-8 scrolleable">
           {userInfo && <Header data={userInfo}></Header>}
-          {tweets.map((tweet) => (
-            <div key={tweet._id}>
-              <Tweet data={tweet}></Tweet>
-            </div>
-          ))}
+          {tweets.length &&
+            tweets.map((tweet) => (
+              <div key={tweet._id}>
+                <Tweet tweet={tweet}></Tweet>
+              </div>
+            ))}
         </div>
         <div className="col-xxl-4 pt-3">
           <SidebarRight></SidebarRight>

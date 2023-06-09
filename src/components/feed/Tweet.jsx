@@ -12,14 +12,13 @@ import axios from "axios";
 
 import "./tweet.css";
 
-function Tweet({ tweet }) {
+function Tweet({ tweet, setTweets }) {
   const [deleted, setDeleted] = useState();
   const [liked, setLiked] = useState("unliked-icon");
+  const [likes, setLikes] = useState();
   const [img, setImg] = useState(unlikedLogo);
   const [response, setResponse] = useState();
   const location = useLocation();
-  console.log(tweet);
-  console.log(tweet.author);
   const author = tweet.author;
   const user = useSelector((state) => state.user);
   const formatDate = useFormattedDate(tweet.createdAt);
@@ -27,10 +26,8 @@ function Tweet({ tweet }) {
   const navigate = useNavigate();
 
   const handlerDeleteTweet = async () => {
-    console.log(data._id);
-    console.log(user.token);
     try {
-      const res = axios.delete(`http://localhost:3000/tweets/${data._id}`, {
+      const res = axios.delete(`http://localhost:3000/tweets/${tweet._id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -40,14 +37,23 @@ function Tweet({ tweet }) {
       console.log(error);
     }
   };
+
   const handlerLikes = async () => {
     try {
       const res = await axios(`http://localhost:3000/tweets/${tweet._id}`, {
         method: "POST",
         headers: { Authorization: `Bearer ${user.token}` },
       });
-
-      setResponse(res.data);
+      setTweets(
+        tweets.map((item) => {
+          if (item._id !== tweet._id) return item;
+          console.log(item.id);
+          console.log(tweet.id);
+          const newLikes = [...item.likes];
+          newLikes.push(user.userId);
+          return { ...item, likes: newLikes };
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +66,6 @@ function Tweet({ tweet }) {
   }, [deleted]);
 
   useEffect(() => {
-    console.log(location.pathname);
     if (response) {
       navigate(location.pathname, { replace: true });
     }
