@@ -29,7 +29,7 @@ function Feed() {
       {tweets.length &&
         tweets.map((tweet, index) => (
           <div key={index}>
-            <Tweet tweet={tweet}></Tweet>
+            <Tweet tweet={tweet} setTweets={setTweets} />
           </div>
         ))}
     </>
