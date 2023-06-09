@@ -22,3 +22,13 @@ body {
 #signUpBody {
   background-color: var(--deep-blue);
 }
+.scrolleable {
+  overflow-y: scroll;
+  max-height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrolleable::-webkit-scrollbar {
+  display: none;
+}

@@ -15,18 +15,19 @@ function Tweet({ data }) {
 
   return (
     <Link to={`/tweets/${data._id}`} className="link-to">
-      <div className="d-flex tweet p-3 border ">
-        <div className="d-inline-block">
+      <div className="d-flex tweet p-2 border ">
+        <div className="pt-1">
           <img
+            alt="User's profile image"
             src={
               checkImg
                 ? checkImg
                 : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
             }
-            className="rounded-circle avatar-pic me-4"
+            className="rounded-circle avatar-pic mx-4"
           />
         </div>
-        <div className="w-100">
+        <div className="w-100 pt-1">
           <Link to={`/users/${user.username}`} className="link-to underline">
             <p className="fw-bold d-inline">
               {author.firstname} {author.lastname}
@@ -46,6 +47,7 @@ function Tweet({ data }) {
                 {data.likes.length > 0 ? (
                   <div className="d-flex gap-1">
                     <img
+                      alt="Active liked Icon"
                       src="/src/assets/twitter-icons/icons/like-active.svg"
                       className="like-icon"
                     />
@@ -53,13 +55,17 @@ function Tweet({ data }) {
                   </div>
                 ) : (
                   <div className="d-flex gap-1">
-                    <img src="/src/assets/twitter-icons/icons/like.svg" />
+                    <img
+                      alt="Unactive liked icon"
+                      src="/src/assets/twitter-icons/icons/like.svg"
+                    />
                   </div>
                 )}
               </button>
             </div>
             {user.userId === author._id ? (
               <img
+                alt="Delete Icon"
                 src="/src/assets/twitter-icons/icons/delete.svg"
                 className="d-flex justify-content-center align-items-end mx-4"
               />
