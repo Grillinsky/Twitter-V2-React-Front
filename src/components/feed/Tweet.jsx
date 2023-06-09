@@ -76,6 +76,7 @@ function Tweet({ tweet }) {
                 : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
             }
             className="rounded-circle avatar-pic me-4"
+            alt={`${author.username}'s profile image`} //AGREGA ACCESIBILIDAD
           />
         </div>
       </Link>
@@ -100,6 +101,7 @@ function Tweet({ tweet }) {
                   className={` ${liked}`}
                   role="button"
                   onClick={handlerLikes}
+                  alt="Like btn active" //AGREGA ACCESIBILIDAD
                 />
                 <p className=" m-0">{tweet.likes.length} </p>
               </div>
@@ -110,6 +112,7 @@ function Tweet({ tweet }) {
             <img
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"
+              alt="delete button" //AGREGA ACCESIBILIDAD
             />
           ) : null}
         </div>
