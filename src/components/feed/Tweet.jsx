@@ -5,14 +5,12 @@ import { useSelector } from "react-redux";
 import { useFormattedDate } from "../../hooks/useFormattedDate";
 import { useCheckImg } from "../../hooks/useCheckImg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
 import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 
 import axios from "axios";
 
 import "./tweet.css";
-import { Link, useNavigate } from "react-router-dom";
 
 function Tweet({ tweet }) {
   const [deleted, setDeleted] = useState();
@@ -21,7 +19,7 @@ function Tweet({ tweet }) {
   const [response, setResponse] = useState();
   const location = useLocation();
   console.log(tweet);
-  console.log(tweet[0].author);
+  console.log(tweet.author);
   const author = tweet.author;
   const user = useSelector((state) => state.user);
   const formatDate = useFormattedDate(tweet.createdAt);

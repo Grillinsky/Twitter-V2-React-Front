@@ -17,8 +17,8 @@ function Feed() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-
-      setTweets(shuffle(flattenDeep(res.data)));
+      console.log(res.data);
+      setTweets(res.data);
     };
     getTweets();
   }, []);
@@ -26,7 +26,7 @@ function Feed() {
   return (
     <>
       <Header></Header>
-      {tweets &&
+      {tweets.length &&
         tweets.map((tweet, index) => (
           <div key={index}>
             <Tweet tweet={tweet}></Tweet>
