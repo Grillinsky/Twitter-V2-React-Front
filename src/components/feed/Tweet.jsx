@@ -1,30 +1,45 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormattedDate } from "../../hooks/useFormattedDate";
 import { useCheckImg } from "../../hooks/useCheckImg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
 import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
+
+import axios from "axios";
 
 import "./tweet.css";
 
 function Tweet({ tweet }) {
+  const [deleted, setDeleted] = useState();
+  const [liked, setLiked] = useState("unliked-icon");
+  const [img, setImg] = useState(unlikedLogo);
+  const [response, setResponse] = useState();
+  const location = useLocation();
   console.log(tweet);
-  console.log(tweet[0].author);
+  console.log(tweet.author);
   const author = tweet.author;
   const user = useSelector((state) => state.user);
   const formatDate = useFormattedDate(tweet.createdAt);
   const checkImg = useCheckImg(author.avatar);
-  const [liked, setLiked] = useState("unliked-icon");
-  const [likes, setLikes] = useState([]);
-  const [img, setImg] = useState(unlikedLogo);
-  const [response, setResponse] = useState();
-  const location = useLocation();
   const navigate = useNavigate();
 
+  const handlerDeleteTweet = async () => {
+    console.log(data._id);
+    console.log(user.token);
+    try {
+      const res = axios.delete(`http://localhost:3000/tweets/${data._id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setDeleted(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handlerLikes = async () => {
     try {
       const res = await axios(`http://localhost:3000/tweets/${tweet._id}`, {
@@ -37,6 +52,12 @@ function Tweet({ tweet }) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (deleted) {
+      navigate(`/users/${user.username}`);
+    }
+  }, [deleted]);
 
   useEffect(() => {
     console.log(location.pathname);
@@ -113,6 +134,7 @@ function Tweet({ tweet }) {
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"
               alt="delete button" //AGREGA ACCESIBILIDAD
+              onClick={handlerDeleteTweet}
             />
           ) : null}
         </div>

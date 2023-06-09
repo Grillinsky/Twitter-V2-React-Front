@@ -5,7 +5,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Header({ data }) {
-  console.log(data);
   const user = useSelector((state) => state.user);
   const checkImg = useCheckImg(data.avatar);
   const location = useLocation();

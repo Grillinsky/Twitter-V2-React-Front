@@ -20,6 +20,7 @@ function UserProfile() {
           Authorization: `Bearer ${user.token}`,
         },
       });
+      console.log(res.data.tweets);
       setUserInfo(res.data);
     };
     getUserData();
@@ -28,6 +29,7 @@ function UserProfile() {
   useEffect(() => {
     if (userInfo) {
       setTweets(userInfo.tweets);
+      console.log(userInfo.tweets);
     }
   }, [userInfo]);
 
