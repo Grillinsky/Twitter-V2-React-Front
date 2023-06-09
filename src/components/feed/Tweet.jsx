@@ -12,7 +12,7 @@ import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 import "./tweet.css";
 
 function Tweet({ tweet }) {
-  // console.log(tweet);
+  console.log(tweet);
   console.log(tweet[0].author);
   const author = tweet.author;
   const user = useSelector((state) => state.user);
@@ -47,7 +47,7 @@ function Tweet({ tweet }) {
 
   useEffect(() => {
     const getTweet = async () => {
-      const res = await axios.get(`http://localhost:3000/tweets/${data._id}`, {
+      const res = await axios.get(`http://localhost:3000/tweets/${tweet._id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
