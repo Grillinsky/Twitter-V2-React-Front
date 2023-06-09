@@ -14,7 +14,6 @@ function UserProfile() {
   const [userInfo, setUserInfo] = useState();
   const params = useParams();
   useEffect(() => {
-    console.log(params);
     const getUserData = async () => {
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
         headers: {
@@ -22,7 +21,6 @@ function UserProfile() {
         },
       });
       setUserInfo(res.data);
-      console.log(res.data);
     };
     getUserData();
   }, []);
@@ -39,7 +37,7 @@ function UserProfile() {
         <div className="col-xxl-2 col-3">
           <SidebarLeft></SidebarLeft>
         </div>
-        <div className="col-xxl-6 col-8">
+        <div className="col-xxl-6 col-8 scrolleable">
           {userInfo && <Header data={userInfo}></Header>}
           {tweets.map((tweet) => (
             <div key={tweet._id}>

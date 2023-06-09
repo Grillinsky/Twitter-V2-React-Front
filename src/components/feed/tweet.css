@@ -25,6 +25,9 @@
 .like-icon {
   color: var(--like-pink);
 }
+.unliked-icon {
+  color: transparent;
+}
 
 .tab {
   all: unset;

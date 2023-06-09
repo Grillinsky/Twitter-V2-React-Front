@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -43,7 +44,6 @@ function SignUp() {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       navigate("/");
     }
   }, [user]);

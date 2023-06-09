@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Tweet from "./Tweet";
 import { flattenDeep } from "../../hooks/flattenDeep";
 import Header from "./Header";
+import { shuffle } from "../../hooks/shuffle";
 
 function Feed() {
   const [tweets, setTweets] = useState([]);
@@ -16,7 +17,8 @@ function Feed() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setTweets(flattenDeep(res.data));
+
+      setTweets(shuffle(flattenDeep(res.data)));
     };
     getTweets();
   }, []);
@@ -27,7 +29,7 @@ function Feed() {
       {tweets &&
         tweets.map((tweet, index) => (
           <div key={index}>
-            <Tweet data={tweet}></Tweet>
+            <Tweet tweet={tweet}></Tweet>
           </div>
         ))}
     </>
