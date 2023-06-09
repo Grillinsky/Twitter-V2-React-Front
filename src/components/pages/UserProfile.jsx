@@ -14,15 +14,14 @@ function UserProfile() {
   const [userInfo, setUserInfo] = useState();
   const params = useParams();
   useEffect(() => {
-    console.log(params);
     const getUserData = async () => {
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
+      console.log(res.data.tweets);
       setUserInfo(res.data);
-      console.log(res.data);
     };
     getUserData();
   }, []);
@@ -30,6 +29,7 @@ function UserProfile() {
   useEffect(() => {
     if (userInfo) {
       setTweets(userInfo.tweets);
+      console.log(userInfo.tweets);
     }
   }, [userInfo]);
 
