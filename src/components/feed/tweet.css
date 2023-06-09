@@ -2,8 +2,11 @@
   all: unset;
   cursor: pointer;
 }
+.underline {
+  text-decoration: none;
+}
 .underline:hover {
-  text-decoration: underline;
+  text-decoration: underline, 2px;
   text-decoration-thickness: 2px;
 }
 

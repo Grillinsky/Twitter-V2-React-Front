@@ -12,11 +12,12 @@ import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 import "./tweet.css";
 
 function Tweet({ tweet }) {
-  console.log(tweet);
-
+  // console.log(tweet);
+  console.log(tweet[0].author);
+  const author = tweet.author;
   const user = useSelector((state) => state.user);
   const formatDate = useFormattedDate(tweet.createdAt);
-  const checkImg = useCheckImg(tweet.author.avatar);
+  const checkImg = useCheckImg(author.avatar);
   const [liked, setLiked] = useState("unliked-icon");
   const [likes, setLikes] = useState([]);
   const [img, setImg] = useState(unlikedLogo);
@@ -66,10 +67,7 @@ function Tweet({ tweet }) {
 
   return (
     <div className="d-flex tweet p-3 border ">
-      <Link
-        to={`/users/${tweet.author.username}`}
-        className="link-to underline"
-      >
+      <Link to={`/users/${author.username}`} className="link-to underline">
         <div className="d-inline-block">
           <img
             src={
@@ -83,15 +81,12 @@ function Tweet({ tweet }) {
       </Link>
 
       <div className="w-100">
-        <Link
-          to={`/users/${tweet.author.username}`}
-          className="link-to underline"
-        >
+        <Link to={`/users/${author.username}`} className="link-to underline">
           <p className="fw-bold d-inline">
-            {tweet.author.firstname} {tweet.author.lastname}
+            {author.firstname} {author.lastname}
           </p>
           <p className="text-secondary fw-medium d-inline ms-2">
-            {tweet.author.username} ·
+            {author.username} ·
           </p>
           <p className="text-secondary fw-medium d-inline ms-2">{formatDate}</p>
         </Link>
@@ -111,7 +106,7 @@ function Tweet({ tweet }) {
             </button>
           </div>
 
-          {user.userId === tweet.author._id ? (
+          {user.userId === author._id ? (
             <img
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"

@@ -2,4 +2,15 @@
   background-color: var(--twitter-blue);
   color: var(--white);
   border-radius: 999em 999em 999em 999em;
+  border: none;
+}
+.btn-feed:hover {
+  filter: brightness(1.18);
+}
+
+@media (min-width: 768px) {
+  .btn-feed {
+    width: 20% !important;
+    margin-left: auto;
+  }
 }

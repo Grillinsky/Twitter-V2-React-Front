@@ -54,12 +54,12 @@ function Login() {
               >
                 <i
                   id="twitterIcon"
-                  className="fab fa-twitter fa-4x m-3 slide-in-right"
+                  className="fab fa-twitter fa-4x m-3 slide-in-right m-5"
                 >
                   <span className="d-none">Icono de Twitter</span>
                 </i>
-                <div id="welcome" className="container m-4 px-4">
-                  <h2>Hey! Nice to see you again 🥰</h2>
+                <div id="welcome" className="container m-5 px-4">
+                  <h2 className="fs-1">Hey! Nice to see you again 🥰</h2>
                 </div>
               </aside>
               <section className="col-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-center">

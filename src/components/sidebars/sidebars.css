@@ -1,6 +1,7 @@
 /* Sidebar-left */
 
 .sidebar-left {
+  padding-block: 2vh;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,21 +19,32 @@
 
 .sidebar-left .nav-btn:nth-child(-n + 3):hover {
   animation-delay: 0.3s;
-  background-color: var(--bg-shadow);
-  scale: 1.1;
+  box-shadow: 0px 10px 15px 29px rgba(0, 0, 0, 0.015);
+  scale: 1.05;
 }
 
 .sidebar-left img {
   width: 2rem;
   height: 2rem;
 }
+/* .sidebar-left img:hover {
+  animation-delay: 0.3s;
+  /* background-color: var(--bg-shadow); */
+/* scale: 1.1; */
+/* } */
 
 .btn-tweet,
 .btn-logout {
   text-align: center;
-  padding: 5px 0 5px 0;
-  margin: 16px 0 16px 0;
+  padding: 1rem 4rem !important;
   border-radius: 999em 999em 999em 999em;
+}
+
+.btn-tweet:hover,
+.btn-logout:hover,
+.btn-tweet:hover,
+.btn-follow:hover {
+  filter: brightness(1.18);
 }
 
 .btn-tweet {
@@ -64,7 +76,7 @@
   }
   .btn-logout,
   .btn-tweet {
-    padding: 0.75rem;
+    padding: 0.75rem !important;
     border-radius: 100%;
   }
   .btn-tweet img {
@@ -85,6 +97,7 @@
 /* Sidebar-right */
 
 .sidebar-right {
+  padding-block: 2vh;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -101,22 +114,28 @@
 }
 
 .sidebar-right img {
-  width: 49px;
-  height: 50px;
+  width: 4rem;
+  height: 4rem;
   background-color: var(--bg-shadow);
   border-radius: 100px;
+  /* margin-right: 2rem; */
 }
 
 .to-follow {
   background-color: var(--bg-shadow);
   border-radius: 16px;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .btn-follow {
   background-color: var(--twitter-blue);
   color: var(--white);
   border-radius: 999em 999em 999em 999em;
-  padding: 5px 10px 5px 10px;
-  margin-left: 4rem;
+  padding: 0.5rem 2rem;
+  margin-left: 2rem;
+}
+.name-tag {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
