@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -43,7 +44,6 @@ function SignUp() {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       navigate("/");
     }
   }, [user]);
@@ -63,12 +63,12 @@ function SignUp() {
               >
                 <i
                   id="twitterIcon"
-                  className="fab fa-twitter fa-4x slide-in-right m-3"
+                  className="fab fa-twitter fa-4x slide-in-right m-5"
                 >
                   <span className="d-none">Icono de Twitter</span>
                 </i>
-                <div id="welcome" className="container m-4">
-                  <h2>Hi! Welcome to Twitter Clone 👋🏻</h2>
+                <div id="welcome" className="container m-5">
+                  <h2 className="fs-1">Hi! Welcome to Twitter Clone 👋🏻</h2>
                 </div>
               </aside>
               <section className="col-sm-12 col-md-6 col-lg-4 d-flex align-items-center justify-content-center">

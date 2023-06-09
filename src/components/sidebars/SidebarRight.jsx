@@ -24,80 +24,67 @@ function SidebarRight() {
       </div>
       <div className="container to-follow mt-3">
         <h3>Who to follow</h3>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <img
             src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
             alt=""
-            className="mx-3"
+            // className="mx-2"
           />
-          <div className="py-3">
+          <div className="p-3 name-tag">
             <p className="fw-bolder m-0">Hack Academy</p>
             <p className="m-0 desc-text-color">@HackAcademyDev</p>
           </div>
 
           <a className="nav-btn btn-follow">Follow</a>
         </div>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <img
             src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
             alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
-            className="mx-3"
+            // className="mx-2"
           />
-          <div className="py-3">
-            <p className="fw-bolder m-0">Hack Academy</p>
-            <p className="m-0 desc-text-color">@HackAcademyDev</p>
+          <div className="p-3 name-tag">
+            <p className="fw-bolder m-0">JavaScript</p>
+            <p className="m-0 desc-text-color">@JavaScript</p>
           </div>
 
           <a className="nav-btn btn-follow">Follow</a>
         </div>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <img
             src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
             alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
-            className="mx-3"
+            // className="mx-2"
           />
-          <div className="py-3">
-            <p className="fw-bolder m-0">Hack Academy</p>
-            <p className="m-0 desc-text-color">@HackAcademyDev</p>
+          <div className="p-3 name-tag">
+            <p className="text-start fw-bolder m-0">MongoDB</p>
+            <p className="m-0 desc-text-color">@MongoDB</p>
           </div>
 
           <a className="nav-btn btn-follow">Follow</a>
         </div>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <img
             src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
             alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
-            className="mx-3"
+            // className="mx-2"
           />
-          <div className="py-3">
-            <p className="fw-bolder m-0">Hack Academy</p>
-            <p className="m-0 desc-text-color">@HackAcademyDev</p>
+          <div className="p-3 name-tag">
+            <p className="fw-bolder m-0">Node.js</p>
+            <p className="m-0 desc-text-color">@Nodejs</p>
           </div>
 
           <a className="nav-btn btn-follow">Follow</a>
         </div>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <img
             src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
             alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
-            className="mx-3"
+            // className="mx-2"
           />
-          <div className="py-3">
-            <p className="fw-bolder m-0">Hack Academy</p>
-            <p className="m-0 desc-text-color">@HackAcademyDev</p>
-          </div>
-
-          <a className="nav-btn btn-follow">Follow</a>
-        </div>
-        <div className="d-flex align-items-center">
-          <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
-            className="mx-3"
-          />
-          <div className="py-3">
-            <p className="fw-bolder m-0">Hack Academy</p>
-            <p className="m-0 desc-text-color">@HackAcademyDev</p>
+          <div className="p-3 name-tag">
+            <p className="fw-bolder m-0">MDN Web Docs</p>
+            <p className="m-0 desc-text-color">@MozDevNet</p>
           </div>
 
           <a className="nav-btn btn-follow">Follow</a>

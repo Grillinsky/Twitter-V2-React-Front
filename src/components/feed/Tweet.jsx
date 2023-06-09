@@ -4,17 +4,27 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormattedDate } from "../../hooks/useFormattedDate";
 import { useCheckImg } from "../../hooks/useCheckImg";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
+import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 
 import axios from "axios";
 
 import "./tweet.css";
 import { Link, useNavigate } from "react-router-dom";
 
-function Tweet({ data }) {
+function Tweet({ tweet }) {
   const [deleted, setDeleted] = useState();
-  const author = data.author;
+  const [liked, setLiked] = useState("unliked-icon");
+  const [img, setImg] = useState(unlikedLogo);
+  const [response, setResponse] = useState();
+  const location = useLocation();
+  console.log(tweet);
+  console.log(tweet[0].author);
+  const author = tweet.author;
   const user = useSelector((state) => state.user);
-  const formatDate = useFormattedDate(data.createdAt);
+  const formatDate = useFormattedDate(tweet.createdAt);
   const checkImg = useCheckImg(author.avatar);
   const navigate = useNavigate();
 
@@ -32,12 +42,51 @@ function Tweet({ data }) {
       console.log(error);
     }
   };
+  const handlerLikes = async () => {
+    try {
+      const res = await axios(`http://localhost:3000/tweets/${tweet._id}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+
+      setResponse(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (deleted) {
       navigate(`/users/${user.username}`);
     }
   }, [deleted]);
+
+  useEffect(() => {
+    console.log(location.pathname);
+    if (response) {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [response]);
+
+  useEffect(() => {
+    const getTweet = async () => {
+      const res = await axios.get(`http://localhost:3000/tweets/${tweet._id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setLikes(res.data.likes);
+
+      if (res.data.likes.includes(user.userId)) {
+        setLiked("liked-icon");
+        setImg(likedLogo);
+      } else {
+        setLiked("unliked-icon");
+        setImg(unlikedLogo);
+      }
+    };
+    getTweet();
+  }, []);
 
   return (
     <div className="d-flex tweet p-3 border ">
@@ -64,28 +113,22 @@ function Tweet({ data }) {
           </p>
           <p className="text-secondary fw-medium d-inline ms-2">{formatDate}</p>
         </Link>
-
-        <p className="fw-normal mb-0"> {data.content}</p>
+        <p className="fw-normal mb-0"> {tweet.content}</p>
         <div className="d-flex justify-content-between">
-          <Link to={`/tweets/${data._id}`} className="link-to">
-            <div className="d-flex align-items-baseline gap-1 mt-1">
-              <button style={{ all: "unset" }}>
-                {data.likes.length > 0 ? (
-                  <div className="d-flex gap-1">
-                    <img
-                      src="/src/assets/twitter-icons/icons/like-active.svg"
-                      className="like-icon"
-                    />
-                    <p className=" m-0">{data.likes.length} </p>
-                  </div>
-                ) : (
-                  <div className="d-flex gap-1">
-                    <img src="/src/assets/twitter-icons/icons/like.svg" />
-                  </div>
-                )}
-              </button>
-            </div>
-          </Link>
+          <div className="d-flex align-items-baseline gap-1 mt-1">
+            <button style={{ all: "unset" }}>
+              <div className="d-flex gap-1">
+                <img
+                  src={img}
+                  className={` ${liked}`}
+                  role="button"
+                  onClick={handlerLikes}
+                />
+                <p className=" m-0">{tweet.likes.length} </p>
+              </div>
+            </button>
+          </div>
+
           {user.userId === author._id ? (
             <img
               src="/src/assets/twitter-icons/icons/delete.svg"
