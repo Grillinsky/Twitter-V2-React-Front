@@ -1,41 +1,37 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useFormattedDate } from '../../hooks/useFormattedDate'
-import { useCheckImg } from '../../hooks/useCheckImg'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import unlikedLogo from '../../assets/twitter-icons/icons/like.svg'
-import likedLogo from '../../assets/twitter-icons/icons/like-active.svg'
+import { useDispatch, useSelector } from "react-redux";
+import { useFormattedDate } from "../../hooks/useFormattedDate";
+import { useCheckImg } from "../../hooks/useCheckImg";
+import { Link } from "react-router-dom";
+import {
+  deleteTweet,
+  setTweetsState,
+  toggleLike,
+} from "../reducers/tweetSlice";
+import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
+import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 
 import axios from 'axios'
 
-import './tweet.css'
+import "./tweet.css";
+import { useEffect } from "react";
 
 function Tweet({ tweet }) {
-  const [deleted, setDeleted] = useState()
-  const [liked, setLiked] = useState('unliked-icon')
-  const [likes, setLikes] = useState()
-  const [img, setImg] = useState(unlikedLogo)
-  const [response, setResponse] = useState()
-  const location = useLocation()
-  const author = tweet.author
-  const user = useSelector(state => state.user)
-  const formatDate = useFormattedDate(tweet.createdAt)
-  const checkImg = useCheckImg(author.avatar)
-  const navigate = useNavigate()
+  const author = tweet.author;
+  const user = useSelector((state) => state.user);
+  const formatDate = useFormattedDate(tweet.createdAt);
+  const checkImg = useCheckImg(author.avatar);
+  const dispatch = useDispatch();
 
   const handlerDeleteTweet = async () => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/tweets/${tweet._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`
-          }
-        }
-      )
-      setDeleted(res.data)
+      const res = axios.delete(`http://localhost:3000/tweets/${tweet.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      dispatch(deleteTweet({ user: user, tweetId: tweet.id }));
     } catch (error) {
       console.log(error)
     }
@@ -43,57 +39,20 @@ function Tweet({ tweet }) {
 
   const handlerLikes = async () => {
     try {
-      const res = await axios(`http://localhost:3000/tweets/${tweet._id}`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${user.token}` }
-      })
-      /*setTweets(
-        tweets.map(item => {
-          if (item._id !== tweet._id) return item
-          console.log(item.id)
-          console.log(tweet.id)
-          const newLikes = [...item.likes]
-          newLikes.push(user.userId)
-          return { ...item, likes: newLikes }
-        })*/
-      setResponse(res.data)
+      const res = await axios(`http://localhost:3000/tweets/${tweet.id}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+
+      dispatch(toggleLike({ user: user, tweetId: tweet.id }));
     } catch (error) {
       console.log(error)
     }
-  }
+  };
 
-  useEffect(() => {
-    if (deleted) {
-      navigate(0, { replace: true })
-      console.log('funciona')
-    }
-  }, [deleted])
+  useEffect(() => {}, []);
 
-  useEffect(() => {
-    if (response) {
-      navigate(0, { replace: true })
-    }
-  }, [response])
 
-  useEffect(() => {
-    const getTweet = async () => {
-      const res = await axios.get(`http://localhost:3000/tweets/${tweet._id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      setLikes(res.data.likes)
-
-      if (res.data.likes.includes(user.userId)) {
-        setLiked('liked-icon')
-        setImg(likedLogo)
-      } else {
-        setLiked('unliked-icon')
-        setImg(unlikedLogo)
-      }
-    }
-    getTweet()
-  }, [])
 
   return (
     <div className="d-flex tweet p-3 border ">
@@ -127,8 +86,14 @@ function Tweet({ tweet }) {
             <button style={{ all: 'unset' }}>
               <div className="d-flex gap-1">
                 <img
-                  src={img}
-                  className={` ${liked}`}
+                  src={`${
+                    tweet.likes.includes(user.id) ? likedLogo : unlikedLogo
+                  } `}
+                  className={`${
+                    tweet.likes.includes(user.id)
+                      ? "liked-icon"
+                      : "unliked-icon"
+                  } `}
                   role="button"
                   onClick={handlerLikes}
                   alt="Like btn active" //AGREGA ACCESIBILIDAD
@@ -138,7 +103,7 @@ function Tweet({ tweet }) {
             </button>
           </div>
 
-          {user.userId === author._id ? (
+          {user.id === author.id ? (
             <img
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"

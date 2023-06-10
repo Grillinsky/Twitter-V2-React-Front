@@ -1,18 +1,37 @@
 /* eslint-disable react/prop-types */
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { useCheckImg } from "../../hooks/useCheckImg";
 import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { toggleFollow } from "../reducers/userSlice";
 
-function Header({ data }) {
-  const user = useSelector((state) => state.user);
-  const checkImg = useCheckImg(data.avatar);
+import "./header.css";
+
+function Header({ user }) {
+  const loggedUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const checkImg = useCheckImg(user.avatar);
   const location = useLocation();
   const params = useParams();
 
   const [followingsActive, setFollowingsActive] = useState("");
   const [followersActive, setFollowersActive] = useState("");
   const [tweetsActive, setTweetsActive] = useState("tab-active");
+
+  const handlerFollow = async () => {
+    try {
+      const res = await axios(`http://localhost:3000/${user.username}/follow`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
+      dispatch(toggleFollow({ userToFollow: user }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (location.pathname.includes("followings")) {
@@ -42,21 +61,31 @@ function Header({ data }) {
           className="rounded-circle avatar-main"
           alt="Profile Image" // Agrega accesibilidad
         />
-        {user.username === data.username ? (
-          <a className="nav-btn btn-follow mx-4">Follow</a>
-        ) : null}
+        {loggedUser.id !== user.id && (
+          <a
+            className={`nav-btn mx-4 ${
+              loggedUser.following.includes(user.id)
+                ? "btn-following"
+                : "btn-follow"
+            }`}
+            type="button"
+            onClick={handlerFollow}
+          >
+            {loggedUser.following.includes(user.id) ? "Following" : "Follow"}
+          </a>
+        )}
       </div>
       <div className="container d-flex flex-column mt-3 p-0 ps-3">
         <p className="mb-0 fw-bolder">
-          {data.firstname} {data.lastname}
+          {user.firstname} {user.lastname}
         </p>
         <div className="container d-flex justify-content-between p-0">
-          <p className="desc-text-color fs-6 m-0">{data.username}</p>
+          <p className="desc-text-color fs-6 m-0">{user.username}</p>
           <div className="d-flex gap-2 me-4">
-            <p className="d-inline fw-bolder">{data.following.length}</p>
+            <p className="d-inline fw-bolder">{user.following.length}</p>
             <p className="d-inline desc-text-color">Following</p>
 
-            <p className="d-inline fw-bolder">{data.followers.length}</p>
+            <p className="d-inline fw-bolder">{user.followers.length}</p>
             <p className="d-inline desc-text-color">Followers</p>
           </div>
         </div>

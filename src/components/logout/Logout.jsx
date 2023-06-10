@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { clearUser } from "../reducers/userSlices";
+import { clearUser } from "../reducers/userSlice";
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ function LogoutBtn() {
     });
     setResponse(res);
     dispatch(clearUser());
+
     navigate("/login");
   };
 

@@ -34,7 +34,7 @@ function Header() {
 
   useEffect(() => {
     if (tweet) {
-      navigate(`/tweets/${tweet._id}`);
+      navigate(`/tweets/${tweet.id}`);
     }
   }, [tweet]);
 

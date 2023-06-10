@@ -1,0 +1,15 @@
+.btn-follow {
+  background-color: var(--twitter-blue);
+  color: var(--white);
+  border-radius: 999em 999em 999em 999em;
+  padding: 0.5rem 2rem;
+  margin-left: 2rem;
+}
+.btn-following {
+  background-color: var(--white);
+  color: var(--twitter-blue);
+  border-radius: 999em 999em 999em 999em;
+  border: 1px solid var(--twitter-blue);
+  padding: 0.5rem 2rem;
+  margin-left: 2rem;
+}

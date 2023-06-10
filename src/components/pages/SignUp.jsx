@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { setUserCredentials } from "../reducers/userSlices";
+import { setUserCredentials } from "../reducers/userSlice";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");

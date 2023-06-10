@@ -1,32 +1,33 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import Tweet from './Tweet'
-import { flattenDeep } from '../../hooks/flattenDeep'
-import Header from './Header'
-import { shuffle } from '../../hooks/shuffle'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setTweetsState } from "../reducers/tweetSlice";
+import Tweet from "./Tweet";
+import Header from "./Header";
 
 function Feed() {
-  const [tweets, setTweets] = useState([])
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
+  const tweetsState = useSelector((state) => state.tweets);
+  const [tweets, setTweets] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getTweets = async () => {
       const res = await axios.get('http://localhost:3000', {
         headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      console.log(res.data)
-      setTweets(res.data)
-    }
-    getTweets()
-  }, [])
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setTweets(res.data);
+      dispatch(setTweetsState(tweets));
+    };
+    getTweets();
+  }, []);
 
   return (
     <>
       <Header></Header>
-      {tweets.length &&
+      {tweets &&
         tweets.map((tweet, index) => (
           <div key={index}>
             <Tweet tweet={tweet} />
