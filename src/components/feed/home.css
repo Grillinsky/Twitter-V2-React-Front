@@ -8,9 +8,10 @@
   filter: brightness(1.18);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 968px) {
   .btn-feed {
     width: 20% !important;
     margin-left: auto;
+    transition: 0.5s;
   }
 }
