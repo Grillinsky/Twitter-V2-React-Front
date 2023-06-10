@@ -3,7 +3,7 @@ import "./sidebars.css";
 
 function SidebarRight() {
   return (
-    <div className="sidebar-right">
+    <div className="sidebar-right scrolleable">
       <div className="container trends">
         <h3>What's happening</h3>
         <div className="my-2">
@@ -26,8 +26,8 @@ function SidebarRight() {
         <h3>Who to follow</h3>
         <div className="d-flex align-items-center justify-content-between">
           <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt=""
+            src="/src/assets/twitter-icons/icons/HA.jpg"
+            alt="Imagen de perfil de Hack Academy"
             // className="mx-2"
           />
           <div className="p-3 name-tag">
@@ -39,8 +39,8 @@ function SidebarRight() {
         </div>
         <div className="d-flex align-items-center justify-content-between">
           <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
+            src="/src/assets/twitter-icons/icons/JS.png"
+            alt="Imagen de perfil de JavaScript"
             // className="mx-2"
           />
           <div className="p-3 name-tag">
@@ -52,8 +52,8 @@ function SidebarRight() {
         </div>
         <div className="d-flex align-items-center justify-content-between">
           <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
+            src="/src/assets/twitter-icons/icons/MONGODB.jpg"
+            alt="Imagen de perfil de Mongo DB"
             // className="mx-2"
           />
           <div className="p-3 name-tag">
@@ -65,8 +65,8 @@ function SidebarRight() {
         </div>
         <div className="d-flex align-items-center justify-content-between">
           <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
+            src="/src/assets/twitter-icons/icons/NODEJS.png"
+            alt="Imagen de perfil de Node.js"
             // className="mx-2"
           />
           <div className="p-3 name-tag">
@@ -78,8 +78,8 @@ function SidebarRight() {
         </div>
         <div className="d-flex align-items-center justify-content-between">
           <img
-            src="/src/assets/twitter-icons/icons/default_profile_400x400.png"
-            alt="Imagen de perfil por defecto en twitter, silueta de persona sin rasgos espeficifos"
+            src="/src/assets/twitter-icons/icons/MDN.png"
+            alt="Imagen de perfil de Mozilla Developer Network"
             // className="mx-2"
           />
           <div className="p-3 name-tag">

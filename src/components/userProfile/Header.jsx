@@ -40,6 +40,7 @@ function Header({ data }) {
               : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
           }
           className="rounded-circle avatar-main"
+          alt="Profile Image" // Agrega accesibilidad
         />
         {user.username === data.username ? (
           <a className="nav-btn btn-follow mx-4">Follow</a>
