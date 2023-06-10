@@ -13,6 +13,7 @@ function UserProfile() {
   const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState();
   const params = useParams();
+
   useEffect(() => {
     const getUserData = async () => {
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
@@ -20,7 +21,7 @@ function UserProfile() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      console.log(res.data.tweets);
+
       setUserInfo(res.data);
     };
     getUserData();
@@ -29,7 +30,6 @@ function UserProfile() {
   useEffect(() => {
     if (userInfo) {
       setTweets(userInfo.tweets);
-      console.log(userInfo.tweets);
     }
   }, [userInfo]);
 
@@ -40,7 +40,7 @@ function UserProfile() {
           <SidebarLeft></SidebarLeft>
         </div>
         <div className="col-xxl-6 col-8 scrolleable">
-          {userInfo && <Header data={userInfo}></Header>}
+          {userInfo && <Header user={userInfo}></Header>}
           {tweets.length &&
             tweets.map((tweet) => (
               <div key={tweet._id}>

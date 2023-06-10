@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setTweetsState } from "../reducers/tweetSlice";
 import Tweet from "./Tweet";
-import { flattenDeep } from "../../hooks/flattenDeep";
 import Header from "./Header";
-import { shuffle } from "../../hooks/shuffle";
 
 function Feed() {
-  const [tweets, setTweets] = useState([]);
   const user = useSelector((state) => state.user);
+  const tweetsState = useSelector((state) => state.tweets);
+  const [tweets, setTweets] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getTweets = async () => {
@@ -17,8 +18,8 @@ function Feed() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      console.log(res.data);
       setTweets(res.data);
+      dispatch(setTweetsState(tweets));
     };
     getTweets();
   }, []);
@@ -26,10 +27,10 @@ function Feed() {
   return (
     <>
       <Header></Header>
-      {tweets.length &&
+      {tweets &&
         tweets.map((tweet, index) => (
           <div key={index}>
-            <Tweet tweet={tweet} setTweets={setTweets} />
+            <Tweet tweet={tweet} />
           </div>
         ))}
     </>

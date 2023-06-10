@@ -51,7 +51,7 @@ function TweetFeed({ tweet, author }) {
               )}
             </button>
           </div>
-          {user.userId === author._id ? (
+          {user.id === author.id ? (
             <img
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"

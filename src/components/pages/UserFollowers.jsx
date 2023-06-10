@@ -53,7 +53,7 @@ function UserFollowers() {
         <div className="col-xxl-6 col-8 scrolleable">
           {userInfo && <Header data={userInfo}></Header>}
           {followers.map((follwer) => (
-            <div className="container border p-3" key={follwer._id}>
+            <div className="container border p-3" key={follwer.id}>
               <FollowCard data={follwer}></FollowCard>
             </div>
           ))}

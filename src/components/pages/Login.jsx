@@ -2,7 +2,7 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { setUserCredentials } from "../reducers/userSlices";
+import { setUserCredentials } from "../reducers/userSlice";
 import { useDispatch } from "react-redux";
 
 import "../login/login.css";

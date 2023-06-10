@@ -1,22 +1,27 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./src/components/reducers/userSlices";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import userReducer from "./src/components/reducers/userSlice";
+
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
+import tweetReducer from "./src/components/reducers/tweetSlice";
 
-const persistConfig = {
-  key: "root",
+const userPersistConfig = {
+  key: "user",
   storage,
 };
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const tweetPersistConfig = {
+  key: "tweet",
+  storage,
+};
+
+const rootReducer = combineReducers({
+  user: persistReducer(userPersistConfig, userReducer),
+  tweet: persistReducer(tweetPersistConfig, tweetReducer),
+});
 
 const store = configureStore({
-  reducer: {
-    user: persistedReducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
-  // Agrega middlewares si es necesario
-  // middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
+  reducer: rootReducer,
   middleware: [thunk],
 });
 
