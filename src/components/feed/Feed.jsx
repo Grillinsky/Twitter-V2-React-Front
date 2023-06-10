@@ -13,7 +13,7 @@ function Feed() {
 
   useEffect(() => {
     const getTweets = async () => {
-      const res = await axios.get("http://localhost:3000", {
+      const res = await axios.get('http://localhost:3000', {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -34,7 +34,7 @@ function Feed() {
           </div>
         ))}
     </>
-  );
+  )
 }
 
-export default Feed;
+export default Feed

@@ -59,6 +59,7 @@ function Header({ user }) {
               : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
           }
           className="rounded-circle avatar-main"
+          alt="Profile Image" // Agrega accesibilidad
         />
         {loggedUser.id !== user.id && (
           <a

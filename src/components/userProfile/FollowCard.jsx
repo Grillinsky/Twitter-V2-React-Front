@@ -16,6 +16,7 @@ function FollowCard({ data }) {
                 : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
             }
             className="rounded-circle avatar-pic me-4"
+            alt="Profile Image" // Agrega accesibilidad
           />
           <div>
             <h3 className="fw-bold hUser mb-0">{data.username}</h3>
