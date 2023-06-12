@@ -1,11 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import SidebarLeft from "../sidebars/SidebarLeft";
 import SidebarRight from "../sidebars/SidebarRight";
 import { useSelector } from "react-redux";
-import Tweet from "../feed/Tweet";
 import axios from "axios";
-import { flattenDeep } from "../../hooks/flattenDeep";
-import { useCheckImg } from "../../hooks/useCheckImg";
 import { useParams } from "react-router-dom";
 import Header from "../userProfile/Header";
 import FollowCard from "../userProfile/followCard";
@@ -51,9 +49,9 @@ function UserFollowers() {
         </div>
         <div className="col-xxl-6 col-8 scrolleable">
           {userInfo && <Header user={userInfo}></Header>}
-          {followers.map((follwer) => (
-            <div className="container border p-3" key={follwer.id}>
-              <FollowCard user={follwer}></FollowCard>
+          {followers.map((follower) => (
+            <div className="container border p-3" key={follower.id}>
+              <FollowCard user={follower}></FollowCard>
             </div>
           ))}
         </div>

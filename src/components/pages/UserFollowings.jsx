@@ -1,24 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import SidebarLeft from "../sidebars/SidebarLeft";
 import SidebarRight from "../sidebars/SidebarRight";
 import { useSelector } from "react-redux";
-import Tweet from "../feed/Tweet";
+
 import axios from "axios";
-import { flattenDeep } from "../../hooks/flattenDeep";
-import { useCheckImg } from "../../hooks/useCheckImg";
+
 import { useParams } from "react-router-dom";
 import Header from "../userProfile/Header";
 import FollowCard from "../userProfile/followCard";
 
 function UserFollowings() {
-  const [tweets, setTweets] = useState([]);
   const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState();
   const [followings, setFollowings] = useState([]);
   const params = useParams();
 
   useEffect(() => {
- 
     const getUserData = async () => {
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
         data: { username: user.username },
@@ -43,7 +41,6 @@ function UserFollowings() {
         }
       );
       setFollowings(res.data);
-   
     };
     getFollowings();
   }, []);
