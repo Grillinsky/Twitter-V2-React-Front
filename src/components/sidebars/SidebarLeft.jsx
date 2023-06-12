@@ -33,7 +33,7 @@ function SidebarLeft() {
       <a className="nav-btn btn-tweet disable-text-btn">
         <img
           src="/src/assets/twitter-icons/icons/write.svg"
-          alt=""
+          alt="Crear un nuevo tweet"
           className="me-2"
         />{" "}
         <span>Tweet</span>
