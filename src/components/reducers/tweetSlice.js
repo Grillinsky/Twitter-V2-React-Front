@@ -10,7 +10,8 @@ const tweetSlice = createSlice({
     toggleLike: (state, action) => {
       const { user, tweetId } = action.payload;
       // const index = state.indexOf(tweetId);
-      // const tweet = state.find((tweet) => tweetId === tweet.id);
+      const tweet = state.find((tweet) => tweetId === tweet.id);
+
       console.log(current(state));
       // console.log(tweet);
 

@@ -12,7 +12,7 @@ import {
 import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
 import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 
-import axios from 'axios'
+import axios from "axios";
 
 import "./tweet.css";
 import { useEffect } from "react";
@@ -33,11 +33,12 @@ function Tweet({ tweet }) {
       });
       dispatch(deleteTweet({ user: user, tweetId: tweet.id }));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handlerLikes = async () => {
+    console.log(tweet);
     try {
       const res = await axios(`http://localhost:3000/tweets/${tweet.id}`, {
         method: "POST",
@@ -46,13 +47,11 @@ function Tweet({ tweet }) {
 
       dispatch(toggleLike({ user: user, tweetId: tweet.id }));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   useEffect(() => {}, []);
-
-
 
   return (
     <div className="d-flex tweet p-3 border ">
@@ -62,7 +61,7 @@ function Tweet({ tweet }) {
             src={
               checkImg
                 ? checkImg
-                : '/src/assets/twitter-icons/icons/default_profile_400x400.png'
+                : "/src/assets/twitter-icons/icons/default_profile_400x400.png"
             }
             className="rounded-circle avatar-pic me-4"
             alt={`${author.username}'s profile image`} //AGREGA ACCESIBILIDAD
@@ -83,7 +82,7 @@ function Tweet({ tweet }) {
         <p className="fw-normal mb-0"> {tweet.content}</p>
         <div className="d-flex justify-content-between">
           <div className="d-flex align-items-baseline gap-1 mt-1">
-            <button style={{ all: 'unset' }}>
+            <button style={{ all: "unset" }}>
               <div className="d-flex gap-1">
                 <img
                   src={`${
@@ -114,7 +113,7 @@ function Tweet({ tweet }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Tweet
+export default Tweet;

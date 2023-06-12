@@ -21,17 +21,11 @@ function UserProfile() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-
+      setTweets(res.data.tweets);
       setUserInfo(res.data);
     };
     getUserData();
   }, []);
-
-  useEffect(() => {
-    if (userInfo) {
-      setTweets(userInfo.tweets);
-    }
-  }, [userInfo]);
 
   return (
     <div className="container">
