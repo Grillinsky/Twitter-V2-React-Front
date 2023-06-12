@@ -2,7 +2,7 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../reducers/userSlice";
 
@@ -14,7 +14,8 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState();
-  const [showError, setShowError] = useState(false);
+  const [alertText, setAlertText] = useState("");
+  const [alertToggle, setAlertToggle] = useState(false);
   const [user, setUser] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,9 +37,12 @@ function SignUp() {
         setUser(response.data);
       } catch (err) {
         console.error(err.response);
+        setAlertToggle(true);
+        setAlertText(err.response.data.message);
       }
     } else {
-      setShowError(true);
+      setAlertToggle(true);
+      setAlertText("Passwords doesn't match, try again");
     }
   };
 
@@ -199,6 +203,7 @@ function SignUp() {
                     >
                       Login
                     </button>
+                    {alertToggle && <Alert variant="danger">{alertText}</Alert>}
                   </div>
                   <small className="d-block text-center">
                     Already have an account? <Link to="/login">Sign In</Link>

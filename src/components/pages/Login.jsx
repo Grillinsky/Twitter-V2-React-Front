@@ -6,11 +6,14 @@ import { setUserCredentials } from "../reducers/userSlice";
 import { useDispatch } from "react-redux";
 
 import "../login/login.css";
+import { Alert } from "react-bootstrap";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const [alertText, setAlertText] = useState("");
+  const [alertToggle, setAlertToggle] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +32,8 @@ function Login() {
       setUser(response.data);
     } catch (err) {
       console.error(err.response);
+      setAlertToggle(true);
+      setAlertText(err.response.data.message);
     }
   };
 
@@ -100,6 +105,7 @@ function Login() {
                     >
                       Login
                     </button>
+                    {alertToggle && <Alert variant="danger">{alertText}</Alert>}
                   </div>
                   {/* <small className="d-block text-center text-danger mb-3"><%= messages.info %></small> */}
 
