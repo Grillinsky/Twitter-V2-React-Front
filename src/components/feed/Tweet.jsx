@@ -36,7 +36,7 @@ function Tweet({ tweet }) {
   };
 
   const handlerLikes = async () => {
-    console.log(tweet);
+   
     try {
       const res = await axios(`http://localhost:3000/tweets/${tweet.id}`, {
         method: "POST",

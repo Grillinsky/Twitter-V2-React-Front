@@ -18,7 +18,7 @@ function UserFollowings() {
   const params = useParams();
 
   useEffect(() => {
-    console.log(params);
+ 
     const getUserData = async () => {
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
         data: { username: user.username },
@@ -43,7 +43,7 @@ function UserFollowings() {
         }
       );
       setFollowings(res.data);
-      console.log(res.data);
+   
     };
     getFollowings();
   }, []);
@@ -58,7 +58,7 @@ function UserFollowings() {
           {userInfo && <Header user={userInfo}></Header>}
           {followings.map((following) => (
             <div className="container border p-3" key={following.id}>
-              <FollowCard data={following}></FollowCard>
+              <FollowCard user={following}></FollowCard>
             </div>
           ))}
         </div>

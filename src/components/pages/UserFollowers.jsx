@@ -18,7 +18,6 @@ function UserFollowers() {
 
   useEffect(() => {
     const getUserData = async () => {
-      console.log(params);
       const res = await axios.get(`http://localhost:3000/${params.username}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -32,7 +31,7 @@ function UserFollowers() {
   useEffect(() => {
     const getFollowers = async () => {
       const res = await axios.get(
-        `http://localhost:3000/${params.username}/followings`,
+        `http://localhost:3000/${params.username}/followers`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -54,7 +53,7 @@ function UserFollowers() {
           {userInfo && <Header user={userInfo}></Header>}
           {followers.map((follwer) => (
             <div className="container border p-3" key={follwer.id}>
-              <FollowCard data={follwer}></FollowCard>
+              <FollowCard user={follwer}></FollowCard>
             </div>
           ))}
         </div>

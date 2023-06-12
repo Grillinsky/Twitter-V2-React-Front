@@ -18,8 +18,6 @@ export const useFormattedDate = (timestamp) => {
 
   const elapsed = (now - from) / 1000;
 
-  //   console.log(elapsed);
-
   for (const unit in DATE_UNITS) {
     if (elapsed > DATE_UNITS[unit]) {
       return rft.format(Math.floor(elapsed / DATE_UNITS[unit]), unit);

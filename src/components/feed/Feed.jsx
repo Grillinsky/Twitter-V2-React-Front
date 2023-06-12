@@ -19,7 +19,7 @@ function Feed() {
         },
       });
 
-      console.log(res.data);
+
       dispatch(setTweetsState(res.data));
     };
     getTweets();
