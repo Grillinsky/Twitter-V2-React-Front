@@ -1,18 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import SidebarLeft from "../sidebars/SidebarLeft";
 import SidebarRight from "../sidebars/SidebarRight";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Tweet from "../feed/Tweet";
 import axios from "axios";
 
 import Header from "../userProfile/Header";
 import { useParams } from "react-router-dom";
+import { setTweetsState } from "../reducers/tweetSlice";
 
 function UserProfile() {
-  const [tweets, setTweets] = useState([]);
+  const tweets = useSelector((state) => state.tweets);
   const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState();
   const params = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUserData = async () => {
@@ -21,7 +24,7 @@ function UserProfile() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setTweets(res.data.tweets);
+      dispatch(setTweetsState(res.data.tweets));
       setUserInfo(res.data);
     };
     getUserData();

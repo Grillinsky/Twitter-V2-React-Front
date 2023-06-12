@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTweetsState } from "../reducers/tweetSlice";
 import Tweet from "./Tweet";
@@ -8,7 +8,7 @@ import Header from "./Header";
 
 function Feed() {
   const user = useSelector((state) => state.user);
-  const [tweets, setTweets] = useState([]);
+  const tweets = useSelector((state) => state.tweets);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,7 +18,8 @@ function Feed() {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setTweets(res.data);
+
+      console.log(res.data);
       dispatch(setTweetsState(res.data));
     };
     getTweets();
@@ -28,8 +29,8 @@ function Feed() {
     <>
       <Header></Header>
       {tweets &&
-        tweets.map((tweet, index) => (
-          <div key={index}>
+        tweets.map((tweet) => (
+          <div key={tweet._id}>
             <Tweet tweet={tweet} />
           </div>
         ))}

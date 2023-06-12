@@ -3,12 +3,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useFormattedDate } from "../../hooks/useFormattedDate";
 import { useCheckImg } from "../../hooks/useCheckImg";
-import { Link } from "react-router-dom";
-import {
-  deleteTweet,
-  setTweetsState,
-  toggleLike,
-} from "../reducers/tweetSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { toggleLike } from "../reducers/tweetSlice";
 import unlikedLogo from "../../assets/twitter-icons/icons/like.svg";
 import likedLogo from "../../assets/twitter-icons/icons/like-active.svg";
 
@@ -23,6 +19,7 @@ function Tweet({ tweet }) {
   const formatDate = useFormattedDate(tweet.createdAt);
   const checkImg = useCheckImg(author.avatar);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlerDeleteTweet = async () => {
     try {
@@ -31,7 +28,8 @@ function Tweet({ tweet }) {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      dispatch(deleteTweet({ user: user, tweetId: tweet.id }));
+
+      navigate(0, { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +73,7 @@ function Tweet({ tweet }) {
             {author.firstname} {author.lastname}
           </p>
           <p className="text-secondary fw-medium d-inline ms-2">
-            {author.username} ·
+            @{author.username} ·
           </p>
           <p className="text-secondary fw-medium d-inline ms-2">{formatDate}</p>
         </Link>
@@ -107,6 +105,7 @@ function Tweet({ tweet }) {
               src="/src/assets/twitter-icons/icons/delete.svg"
               className="d-flex justify-content-center align-items-end mx-4"
               alt="delete button" //AGREGA ACCESIBILIDAD
+              role="button"
               onClick={handlerDeleteTweet}
             />
           ) : null}

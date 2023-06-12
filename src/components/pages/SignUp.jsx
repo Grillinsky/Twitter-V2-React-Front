@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ import { setUserCredentials } from "../reducers/userSlice";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLasttName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -69,7 +70,7 @@ function SignUp() {
                   id="twitterIcon"
                   className="fab fa-twitter fa-4x slide-in-right m-5"
                 >
-                  <span className="d-none">Icono de Twitter</span>
+                  <span className="d-none">Twitter icon</span>
                 </i>
                 <div id="welcome" className="container m-5">
                   <h2 className="fs-1">Hi! Welcome to Twitter Clone 👋🏻</h2>
@@ -94,7 +95,7 @@ function SignUp() {
                       className="form-control"
                       id="firstname"
                       name="firstname"
-                      placeholder="Nombre..."
+                      placeholder="Name..."
                       required
                     />
                     <label htmlFor="firstName">First Name</label>
@@ -102,13 +103,13 @@ function SignUp() {
                   <div className="form-floating mb-3">
                     <input
                       onChange={(e) => {
-                        setLasttName(e.target.value);
+                        setLastName(e.target.value);
                       }}
                       type="text"
                       className="form-control"
                       id="lastname"
                       name="lastname"
-                      placeholder="Apellido..."
+                      placeholder="Lastname..."
                       required
                     />
                     <label htmlFor="lastName">Last Name</label>
@@ -182,7 +183,7 @@ function SignUp() {
                         type="password"
                         className="form-control"
                         id="confirmPassword"
-                        placeholder="Please confirm yout password"
+                        placeholder="Please confirm your password"
                         required
                       />
                       <label htmlFor="confirmPassword">

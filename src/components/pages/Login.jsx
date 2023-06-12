@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -61,7 +62,7 @@ function Login() {
                   id="twitterIcon"
                   className="fab fa-twitter fa-4x m-3 slide-in-right m-5"
                 >
-                  <span className="d-none">Icono de Twitter</span>
+                  <span className="d-none">Twitter Icon</span>
                 </i>
                 <div id="welcome" className="container m-5 px-4">
                   <h2 className="fs-1">Hey! Nice to see you again 🥰</h2>

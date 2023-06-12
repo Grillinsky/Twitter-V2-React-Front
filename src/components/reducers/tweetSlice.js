@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const tweetSlice = createSlice({
-  name: "tweet",
+  name: "tweets",
   initialState: [],
   reducers: {
     setTweetsState: (state, action) => {
@@ -9,24 +10,19 @@ const tweetSlice = createSlice({
     },
     toggleLike: (state, action) => {
       const { user, tweetId } = action.payload;
-      // const index = state.indexOf(tweetId);
-      const tweet = state.find((tweet) => tweetId === tweet.id);
 
-      console.log(current(state));
-      // console.log(tweet);
+      const tweet = state.find((tweet) => tweet.id === tweetId);
 
-      //   if (state.likes.includes(user.id)) {
-      //     const index = state.likes.indexOf(user.id);
-      //     state.likes.splice(index, 1); // Eliminar el seguidor del array state
-      //   } else {
-      //     state.likes.push(user.id); // Agregar el seguidor al array state
-      //   }
+      if (tweet.likes.includes(user.id)) {
+        const index = tweet.likes.indexOf(user.id);
+        tweet.likes.splice(index, 1); // Eliminar el seguidor del array tweet
+      } else {
+        tweet.likes.push(user.id); // Agregar el seguidor al array state
+      }
     },
-    toggleRetweet: (state, action) => {},
-    deleteTweet: (state, action) => {},
+   
   },
 });
-export const { setTweetsState, toggleLike, toggleRetweet, deleteTweet } =
-  tweetSlice.actions;
+export const { setTweetsState, toggleLike } = tweetSlice.actions;
 
 export default tweetSlice.reducer;

@@ -20,19 +20,27 @@ function App() {
       <Route
         path="/"
         element={
-          user.token ? <Home /> : <Navigate to="/login" replace={true} />
+          user && user.token ? (
+            <Home />
+          ) : (
+            <Navigate to="/login" replace={true} />
+          )
         }
       />
       <Route
         path="/users/:username"
         element={
-          user.token ? <UserProfile /> : <Navigate to="/login" replace={true} />
+          user && user.token ? (
+            <UserProfile />
+          ) : (
+            <Navigate to="/login" replace={true} />
+          )
         }
       />
       <Route
         path="/users/:username/followers"
         element={
-          user.token ? (
+          user && user.token ? (
             <UserFollowers />
           ) : (
             <Navigate to="/login" replace={true} />
@@ -42,7 +50,7 @@ function App() {
       <Route
         path="/users/:username/followings"
         element={
-          user.token ? (
+          user && user.token ? (
             <UserFollowings />
           ) : (
             <Navigate to="/login" replace={true} />
@@ -52,7 +60,11 @@ function App() {
       <Route
         path="/tweets/:tweetId"
         element={
-          user.token ? <Tweet /> : <Navigate to="/login" replace={true} />
+          user && user.token ? (
+            <Tweet />
+          ) : (
+            <Navigate to="/login" replace={true} />
+          )
         }
       />
     </Routes>
