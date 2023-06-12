@@ -12,9 +12,9 @@ const userSlice = createSlice({
 
       if (state.following.includes(userToFollow.id)) {
         const index = state.following.indexOf(userToFollow.id);
-        state.following.splice(index, 1); // Eliminar el seguidor del array state
+        state.following.splice(index, 1);
       } else {
-        state.following.push(userToFollow.id); // Agregar el seguidor al array state
+        state.following.push(userToFollow.id);
       }
     },
 

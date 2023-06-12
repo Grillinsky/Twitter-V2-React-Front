@@ -21,6 +21,7 @@ function Header({ user }) {
 
   const handlerFollow = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios(`http://localhost:3000/${user.username}/follow`, {
         method: "POST",
         headers: {

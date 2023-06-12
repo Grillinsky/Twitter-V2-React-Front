@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +8,12 @@ import Header from "./Header";
 
 function Feed() {
   const user = useSelector((state) => state.user);
-  const tweetsState = useSelector((state) => state.tweets);
   const [tweets, setTweets] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getTweets = async () => {
-      const res = await axios.get('http://localhost:3000', {
+      const res = await axios.get("http://localhost:3000", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -34,7 +34,7 @@ function Feed() {
           </div>
         ))}
     </>
-  )
+  );
 }
 
-export default Feed
+export default Feed;
